@@ -1,1 +1,3 @@
-# tech_pack
+# TechPack
+
+> Task 1.0

@@ -1,3 +1,4 @@
+import exceptions from '../exception/Exceptions';
 import { PHOTO_TYPES, User } from '../model/user.model';
 import faceRecognitionService from './face.recognition.service';
 
@@ -35,6 +36,15 @@ const register = async (
     const extractedDocument = <Record<string, string>>(
         await textractService.extractTextFromPhoto(identificationCardPhotoKey)
     );
+
+    if (!extractedDocument['Registration number'])
+        throw new exceptions.RegistrationNumberNotFoundException();
+
+    if (!extractedDocument['3uar/3x/-n Hap Surname'])
+        throw new exceptions.SurnameNotFoundException();
+
+    if (!extractedDocument['Hap Given name'])
+        throw new exceptions.GivenNameNotFoundException();
 
     const metadata = {
         registerationNumber: {
